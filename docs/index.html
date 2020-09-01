@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script src="https://sdk-cdn.mypurecloud.com/javascript/89.0.0/purecloud-platform-client-v2.min.js"></script>
+  <script src="index.js" type="module"></script>
+
+  <title>Chat Sims</title>
+</head>
+<body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-5">Summon the Guest Chatters!</h1>
+    </div>
+  </div>
+  <div class="container">
+    <form>
+      <div class="form-row">
+        <div class="col">
+          <label for="formControlRange">Number of Guest Chatters: 
+            <span id="span-chatter-count">3</span>
+          </label>
+          <input type="range" id="range-chatter-count" class="form-control-range" value="3" min="1" max="5" id="formControlRange">
+        </div>
+        <div class="col">
+          <label for="formControlRange">Queue:</label>
+          <select class="form-control form-control-sm">
+            <option>Small select</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="container">
+      <button id="initiate" type="button" class="btn btn-primary">Summon!</button>
+    </div>
+  </div>  
+</body>
+</html>
