@@ -1,9 +1,10 @@
 import names from './names.js';
 import messages from './messages.js';
+import statusTemplate from './status-template.js';
 
 const platformClient = require('platformClient');
 const client = platformClient.ApiClient.instance;
-
+const defaultQueue = 'a1fb73fc-1812-451f-81ef-5ccf8b315b58';
 
 let chatterCount = 3; // Default
 const minReplyTime = 10;
@@ -25,7 +26,9 @@ function initiateChatters(){
         chatters = chattersData;
 
         for(let i = 0; i < chatters.length; i++){
+            // Start sending of message
             sendMessage(chatters[i], true);
+
         }
     })
     .catch((e) => console.error(e));
@@ -107,7 +110,6 @@ function createChatters(){
                     console.log(`Websocket connected for ${fullName}`);
                     resolve(data);
                 });
-    
                 // Listen for messages
                 socket.addEventListener('message', function (event) {
                     // console.log(`Message from server for ${fullName}`, event.data);
@@ -126,6 +128,10 @@ document.getElementById('initiate')
         .addEventListener('click', () => {
     initiateChatters();
 })
+document.getElementById('btn-refresh')
+        .addEventListener('click', () => {
+    location.reload();
+})
 document.getElementById('range-chatter-count')
 .addEventListener('input', (event) => {
     let el = event.target;
@@ -135,11 +141,28 @@ document.getElementById('range-chatter-count')
     .innerText = chatterCount;
 })
 
+const routingApi = new platformClient.RoutingApi();
 client.loginImplicitGrant('e7de8a75-62bb-43eb-9063-38509f8c21af', 
     window.location.href)
 .then((data) => {
     console.log(data);
-    // Do authenticated things
+    return routingApi.getRoutingQueues({
+        pageSize: 100
+    })
+})
+.then((queuesData) => {
+    console.log(queuesData);
+    let queues = queuesData.entities;
+    let elSelect = document.getElementById('select-queue');
+    queues.forEach((q) => {
+        let el = document.createElement('option');
+        el.id = q.id;
+        el.value = q.id;
+        el.innerText = q.name;
+        elSelect.appendChild(el);
+    });
+    let defaultOption = document.getElementById(defaultQueue);
+    if(defaultOption) defaultOption.selected = true;
 })
 .catch((err) => {
     // Handle failure response
